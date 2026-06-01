@@ -1,0 +1,13 @@
+package com.github.VeinyM.neobank;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class NeobankApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
