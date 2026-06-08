@@ -17,7 +17,7 @@ public class Task {
     public Task(){
         this.name = onlyDigits(this.toString()) /*this.toString()*/;
         this.duration = random.nextLong(30L,120L);
-        System.out.println("Task:" + name + " created");
+//        System.out.println("Task: #" + name + " created.");
     }
 
 

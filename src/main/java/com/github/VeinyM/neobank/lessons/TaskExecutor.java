@@ -1,5 +1,7 @@
 package com.github.VeinyM.neobank.lessons;
 
+import com.github.VeinyM.neobank.lessons.Logging.Loggable;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,7 @@ public class TaskExecutor {
     @Autowired
     public TaskExecutor() {
 //        this.taskList = taskList;
-        System.out.println("Executor concha");
+//        System.out.println("Task Executor started:");
     }
 
     @Override
@@ -29,5 +31,10 @@ public class TaskExecutor {
 
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    @Loggable(type = "TaskExecutorINFO")
+    public void printExecutor(){
+//        System.out.println("Execute!");
     }
 }
