@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -18,31 +19,28 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long userId;
+    private Long userId;
     @Column
-    String name;
+    private String name;
 
     @Column
-    Integer age;
+    private Integer age;
 
     @Column
-    Long balance;
+    private BigDecimal balance;
 
     @Column
-    String email;
+    private String email;
 
     @Column
-    String phoneNumber;
+    private String phoneNumber;
 
     @Column
-    String country;
+    private String country;
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> sendTransactions;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> receivedTransactions;
 }
-
-//class Payment {
-//    Long paymentId;
-//    Long senderId;
-//    Long recieverId;
-//    Long amount;
-//    LocalDateTime dateTime;
-//}
-

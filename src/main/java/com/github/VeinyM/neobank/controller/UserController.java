@@ -1,15 +1,11 @@
 package com.github.VeinyM.neobank.controller;
 
-import com.github.VeinyM.neobank.dto.UserCreateDto;
-import com.github.VeinyM.neobank.dto.UserResponseDto;
-import com.github.VeinyM.neobank.model.User;
-import com.github.VeinyM.neobank.dto.UserUpdateDto;
+import com.github.VeinyM.neobank.dto.*;
 import com.github.VeinyM.neobank.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +34,7 @@ public class UserController {
         return ResponseEntity.ok(userResponseDto);
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<UserResponseDto> createUser(
             @Valid @RequestBody UserCreateDto userCreateDto
             ){
@@ -64,5 +60,30 @@ public class UserController {
         userService.deleteUser(id);
         log.info("Method deleteUser used");
         return ResponseEntity.noContent().build();
+    }
+    /////////////////////////////////////////////////////////
+    @PostMapping("/transfer")
+    public ResponseEntity<Void> transfer(
+            @RequestBody TransferDto request
+    ){
+        userService.transfer(request);
+        log.info("Money successfully sent!");
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/deposit")
+    public ResponseEntity<Void> deposit(
+            @RequestBody DepositDto request
+    ){
+        userService.deposit(request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/info")
+    public ResponseEntity<AccountInfoDto> getAccountInfo(
+            @PathVariable("id") Long id
+    ){
+        AccountInfoDto acc = userService.getAccountInfo(id);
+        return ResponseEntity.ok(acc);
     }
 }

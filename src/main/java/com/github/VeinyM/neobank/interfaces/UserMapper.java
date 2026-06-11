@@ -1,13 +1,12 @@
 package com.github.VeinyM.neobank.interfaces;
 
-import com.github.VeinyM.neobank.dto.UserCreateDto;
-import com.github.VeinyM.neobank.dto.UserResponseDto;
+import com.github.VeinyM.neobank.dto.*;
+import com.github.VeinyM.neobank.model.Transaction;
 import com.github.VeinyM.neobank.model.User;
-import com.github.VeinyM.neobank.dto.UserUpdateDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -17,4 +16,15 @@ public interface UserMapper {
     void updateUserFromDto(UserUpdateDto dto, @MappingTarget User entity);
     UserResponseDto toResponseDto(User user);
     List<UserResponseDto> toResponseDto(List<User> userList);
+
+
+
+
+    AccountInfoDto toAccountInfoDto(User user);
+
+    @Mapping(source = "transactionId", target = "id")
+    @Mapping(source = "sender.name", target = "sender")
+    @Mapping(source = "receiver.name", target = "receiver")
+    TransactionDto toTransactionDto(Transaction transaction);
+
 }

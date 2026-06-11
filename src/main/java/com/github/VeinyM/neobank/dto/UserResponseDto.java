@@ -2,6 +2,8 @@ package com.github.VeinyM.neobank.dto;
 
 import jakarta.validation.constraints.*;
 
+import java.math.BigDecimal;
+
 public record UserResponseDto(
         @NotBlank(message = "This row mustn't be empty!")
         String name,
