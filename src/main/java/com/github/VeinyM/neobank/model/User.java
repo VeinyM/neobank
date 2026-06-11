@@ -19,25 +19,30 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long userId;
-
+    @Column
     String name;
 
-    int age;
+    @Column
+    Integer age;
 
+    @Column
     Long balance;
 
+    @Column
     String email;
 
+    @Column
     String phoneNumber;
 
+    @Column
     String country;
 }
 
-class Payment {
-    Long paymentId;
-    Long senderId;
-    Long recieverId;
-    Long amount;
-    LocalDateTime dateTime;
-}
+//class Payment {
+//    Long paymentId;
+//    Long senderId;
+//    Long recieverId;
+//    Long amount;
+//    LocalDateTime dateTime;
+//}
 
