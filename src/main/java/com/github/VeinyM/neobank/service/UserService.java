@@ -2,13 +2,14 @@ package com.github.VeinyM.neobank.service;
 
 import com.github.VeinyM.neobank.dto.*;
 import com.github.VeinyM.neobank.interfaces.UserMapper;
-import com.github.VeinyM.neobank.model.Transaction;
-import com.github.VeinyM.neobank.model.User;
+import com.github.VeinyM.neobank.entity.Transaction;
+import com.github.VeinyM.neobank.entity.User;
 import com.github.VeinyM.neobank.repository.TransactionRepository;
 import com.github.VeinyM.neobank.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,11 +22,19 @@ public class UserService {
     private final UserRepository userRepository;
     private final TransactionRepository transactionRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper, TransactionRepository transactionRepository){
+    public UserService(
+            UserRepository userRepository,
+            UserMapper userMapper,
+            TransactionRepository transactionRepository,
+            PasswordEncoder passwordEncoder
+    ){
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.transactionRepository = transactionRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -33,13 +42,22 @@ public class UserService {
         return userMapper.toResponseDto(userRepository.findAll());
     }
 
-    public UserResponseDto createUser(UserCreateDto userCreateDto) {
+    public UserResponseDto registerUser(UserCreateDto userCreateDto) {
+
+        if(userRepository.findByUsername(userCreateDto.username()).isPresent()) {
+            throw new RuntimeException("Username is already taken!");
+        }
+
         User user = userMapper.toEntity(userCreateDto);
         user.setUserId(null);
         user.setBalance(BigDecimal.ZERO);
+
+        String hashedPass = passwordEncoder.encode(userCreateDto.password());
+        user.setPassword(hashedPass);
         User savedUser = userRepository.save(user);
         return userMapper.toResponseDto(savedUser);
     }
+
 
     public UserResponseDto getUser(Long id) {
         return userMapper.toResponseDto(userRepository.findById(id)
@@ -130,4 +148,8 @@ public class UserService {
 
         return userMapper.toAccountInfoDto(response);
     }
+
+//    public UserResponseDto login(LoginRegisterDto loginDto) {
+//
+//    }
 }

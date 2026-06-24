@@ -1,8 +1,8 @@
 package com.github.VeinyM.neobank.interfaces;
 
 import com.github.VeinyM.neobank.dto.*;
-import com.github.VeinyM.neobank.model.Transaction;
-import com.github.VeinyM.neobank.model.User;
+import com.github.VeinyM.neobank.entity.Transaction;
+import com.github.VeinyM.neobank.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -16,9 +16,6 @@ public interface UserMapper {
     void updateUserFromDto(UserUpdateDto dto, @MappingTarget User entity);
     UserResponseDto toResponseDto(User user);
     List<UserResponseDto> toResponseDto(List<User> userList);
-
-
-
 
     AccountInfoDto toAccountInfoDto(User user);
 

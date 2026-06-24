@@ -1,41 +1,30 @@
-package com.github.VeinyM.neobank.model;
+package com.github.VeinyM.neobank.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Data
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    @Column
+
     private String name;
 
-    @Column
     private Integer age;
 
-    @Column
     private BigDecimal balance;
 
-    @Column
     private String email;
 
-    @Column
     private String phoneNumber;
 
-    @Column
     private String country;
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -43,4 +32,10 @@ public class User {
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> receivedTransactions;
+
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 }

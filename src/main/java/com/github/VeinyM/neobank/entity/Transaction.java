@@ -1,4 +1,4 @@
-package com.github.VeinyM.neobank.model;
+package com.github.VeinyM.neobank.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

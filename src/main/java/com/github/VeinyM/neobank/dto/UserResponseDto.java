@@ -17,6 +17,9 @@ public record UserResponseDto(
         String phoneNumber,
         @NotBlank(message = "If u can't remember where u live, u must be in Garbage Country, didn't ya?")
         @Size(min = 2, max = 3, message = "2 or 3 letter u know?! (f.e. uz,kz,ru,in)")
-        String country
+        String country,
+
+        @NotBlank
+        String username
 ) {
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -34,11 +34,11 @@ public class UserController {
         return ResponseEntity.ok(userResponseDto);
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<UserResponseDto> createUser(
+    @PostMapping("/register")
+    public ResponseEntity<UserResponseDto> registerUser(
             @Valid @RequestBody UserCreateDto userCreateDto
-            ){
-        UserResponseDto userResponseDto = userService.createUser(userCreateDto);
+    ){
+        UserResponseDto userResponseDto = userService.registerUser(userCreateDto);
         log.info("Method createUser used");
         return ResponseEntity.ok(userResponseDto);
     }
